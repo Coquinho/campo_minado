@@ -12,13 +12,14 @@ public class Abrir implements Jogadas {
 	// Faz a ligca de quando clicado em um ponto
 	@Override
 	public void jogar(int i, int j, JanelaCampoMinado window) {
-
+		if (window.isAcao() == false)
+			return; 
+		
 		if (window.getCampo().getCampoReferencia()[i][j] == 9) {
 			window.setAcao(false);
 			window.pararTimer();
 			JOptionPane.showMessageDialog(null, "Você perdeu");
 			window.getCampo().setCampoJogador(window.getCampo().getCampoReferencia());
-			return;
 
 		} else if (window.getCampo().getCampoReferencia()[i][j] == 0) {
 
@@ -38,13 +39,13 @@ public class Abrir implements Jogadas {
 					}
 				}
 			}
-
+			verificarVitoria();
 		} else if (window.getCampo().getCampoJogador()[i][j] == 10) {
 			window.getCampo().setValor(i, j, window.getCampo().getCampoReferencia()[i][j]);
+			verificarVitoria();
 		} else{
 			new Aberto(i,j, window);
-		}
-		verificarVitoria();
+		}		
 	}
 
 	// Abri o campo quando aclidado em um ponto com 0 minas
